@@ -1,8 +1,6 @@
 {
   "name": "browser-viewport",
-  "version": "0.1.3
-
-  ",
+  "version": "0.1.3",
   "description": "Browser viewport lib",
   "main": "index.js",
   "scripts": {
