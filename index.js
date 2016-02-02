@@ -24,15 +24,15 @@ var scroll_to = function (el, to, duration) {
     return;
   }
 
-  var difference = to - el.scrollTop;
-  var per_tick = difference / duration * tick_interval;
+  var per_tick = (to - el.scrollTop) / duration * tick_interval;
 
   setTimeout(function() {
     window.requestAnimationFrame(function() {
         if (el.scrollTop === to) {
           return;
         }
-        el.scrollTop = el.scrollTop + per_tick;
+        var new_pos = Math.abs(el.scrollTop + per_tick);
+        el.scrollTop = new_pos > to ? to : new_pos;
         scroll_to(el, to, duration - tick_interval);
     });
   }, tick_interval);
