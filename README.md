@@ -10,9 +10,9 @@ npm install browser-viewport --save
 You can use library to smooth scrolling or detecting element in viewport or no
 
 ```javascript
-var viewport = require('browser-viewport')
-var element = document.query('#some-element-id')
-viewport.scrollTo(document.body, element.offsetTop, 500)
+var viewport = require('browser-viewport');
+var element = document.querySelector('#some-element-id');
+viewport.scrollTo(document.body, element.offsetTop, 500);
 ```
 ## Methods
 
