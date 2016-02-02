@@ -1,5 +1,5 @@
 # browser-viewport
-Browser viewport lib
+Browser viewport lib – smooth scrolling and viewport operating methods
 
 ## Installation
 ```bash
@@ -19,12 +19,11 @@ viewport.scrollTo(document.body, element.offsetTop, 500)
 ### scrollTo(scrollable_container, offset, timeout)
 Do smooth scrool to needed element offset
 
-**scrollable_container** - container that will be scrolled, normally its *document.body*
-**offset** - scroll to that offset from top
-**timeout** - how smooth your scroll? in ms
+- **scrollable_container** - container that will be scrolled, normally its *document.body*
+- **offset** - scroll to that offset from top
+- **timeout** - how smooth your scroll? in ms
 
 ### isIn(element)
 Check if element is visible in current viewport
 
-**element** - DOM element to check
-
+- **element** - DOM element to check
