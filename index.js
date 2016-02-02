@@ -29,10 +29,10 @@ var scroll_to = function (el, to, duration) {
 
   setTimeout(function() {
     window.requestAnimationFrame(function() {
-        el.scrollTop = el.scrollTop + per_tick;
         if (el.scrollTop === to) {
           return;
         }
+        el.scrollTop = el.scrollTop + per_tick;
         scroll_to(el, to, duration - tick_interval);
     });
   }, tick_interval);
