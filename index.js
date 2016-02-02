@@ -40,6 +40,11 @@ var scroll_to = function (el, to, duration) {
 
 module.exports = {
   isIn: element_in_viewport,
-  scrollTo: scroll_to
+  scrollTo: scroll_to,
+  width: function () {
+    return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+  },
+  height: function () {
+    return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+  }
 };
-

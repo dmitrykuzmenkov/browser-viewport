@@ -27,3 +27,9 @@ Do smooth scrool to needed element offset
 Check if element is visible in current viewport
 
 - **element** - DOM element to check
+
+### width()
+Get current viewport width
+
+### height()
+Get  current viewport height
