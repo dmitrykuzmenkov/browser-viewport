@@ -1,46 +1,63 @@
-var element_in_viewport = function (el) {
-  var top = el.offsetTop;
-  var left = el.offsetLeft;
-  var width = el.offsetWidth;
-  var height = el.offsetHeight;
-
-  while (el.offsetParent) {
-    el = el.offsetParent;
-    top += el.offsetTop;
-    left += el.offsetLeft;
+var now = function () {
+  if (window.performance && window.performance.now) {
+    return window.performance.now();
   }
 
-  return (
-    top >= window.pageYOffset &&
-    left >= window.pageXOffset &&
-    (top + height) <= (window.pageYOffset + window.innerHeight) &&
-    (left + width) <= (window.pageXOffset + window.innerWidth)
-  );
+  return Date.now();
 };
 
-var tick_interval = 16;
-var scroll_to = function (el, to, duration) {
-  if (duration <= 0) {
-    return;
-  }
-
-  var per_tick = (to - el.scrollTop) / duration * tick_interval;
-
-  setTimeout(function() {
-    window.requestAnimationFrame(function() {
-        if (el.scrollTop === to) {
-          return;
-        }
-        var new_pos = Math.abs(el.scrollTop + per_tick);
-        el.scrollTop = new_pos > to ? to : new_pos;
-        scroll_to(el, to, duration - tick_interval);
-    });
-  }, tick_interval);
+var ease = function(k) {
+  return 0.5 * (1 - Math.cos(Math.PI * k));
 };
 
+var frame;
 module.exports = {
-  isIn: element_in_viewport,
-  scrollTo: scroll_to,
+  isIn: function (el) {
+    var top = el.offsetTop;
+    var left = el.offsetLeft;
+    var width = el.offsetWidth;
+    var height = el.offsetHeight;
+
+    while (el.offsetParent) {
+      el = el.offsetParent;
+      top += el.offsetTop;
+      left += el.offsetLeft;
+    }
+
+    return (
+      top >= window.pageYOffset &&
+      left >= window.pageXOffset &&
+      (top + height) <= (window.pageYOffset + window.innerHeight) &&
+      (left + width) <= (window.pageXOffset + window.innerWidth)
+    );
+  },
+  scrollTo: function (el, to, duration) {
+    if (duration <= 0) {
+      return;
+    }
+
+    var start_time = now();
+
+    if (frame) {
+      window.cancelAnimationFrame(frame);
+    }
+
+    var scroll_func = function() {
+      if (el.scrollTop === to) {
+        window.cancelAnimationFrame(frame);
+        return;
+      }
+
+      var elapsed = (now() - start_time) / duration;
+      elapsed = elapsed > 1 ? 1 : elapsed;
+
+      var new_pos = Math.abs(el.scrollTop + (to - el.scrollTop) * ease(elapsed));
+      el.scrollTop = new_pos > to ? to : new_pos;
+
+      window.requestAnimationFrame(scroll_func);
+    };
+    frame = window.requestAnimationFrame(scroll_func);
+  },
   width: function () {
     return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   },
