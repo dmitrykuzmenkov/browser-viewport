@@ -10,12 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/dmitrykuzmenkov/browser-viewport.git"
   },
-  "keywords": [
-    "viewport",
-    "browser",
-    "scroll",
-    "dimension"
-  ],
+  "keywords": ["viewport", "browser", "smooth", "scroll", "dimension", "animation"],
   "author": "Dmitry Kuzmenkov <dmitry@wagh.ru> (http://dmitrykuzmenkov.ru)",
   "license": "MIT",
   "bugs": {
