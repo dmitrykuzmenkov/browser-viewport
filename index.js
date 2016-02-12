@@ -41,6 +41,7 @@ module.exports = {
     }
 
     var scroll_top = el.scrollTop;
+    var is_forward = to >= scroll_top;
     var start_time = now();
 
     var scroll_func = function() {
@@ -54,7 +55,7 @@ module.exports = {
       elapsed = elapsed > 1 ? 1 : elapsed;
 
       var new_pos = Math.abs(scroll_top + (to - scroll_top) * ease(elapsed));
-      scroll_top = new_pos > to ? to : new_pos;
+      scroll_top = (is_forward && new_pos > to) || (!is_forward && new_pos < to) ? to : new_pos;
 
       // Finally scroll to position
       el.scrollTop = scroll_top;
