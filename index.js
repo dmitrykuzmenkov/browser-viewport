@@ -36,14 +36,16 @@ module.exports = {
       return;
     }
 
-    var start_time = now();
-
     if (frame) {
       window.cancelAnimationFrame(frame);
     }
 
+    var scroll_top = el.scrollTop;
+    var start_time = now();
+
     var scroll_func = function() {
-      if (el.scrollTop === to) {
+
+      if (scroll_top === to) {
         window.cancelAnimationFrame(frame);
         return;
       }
@@ -51,9 +53,11 @@ module.exports = {
       var elapsed = (now() - start_time) / duration;
       elapsed = elapsed > 1 ? 1 : elapsed;
 
-      var new_pos = Math.abs(el.scrollTop + (to - el.scrollTop) * ease(elapsed));
-      el.scrollTop = new_pos > to ? to : new_pos;
+      var new_pos = Math.abs(scroll_top + (to - scroll_top) * ease(elapsed));
+      scroll_top = new_pos > to ? to : new_pos;
 
+      // Finally scroll to position
+      el.scrollTop = scroll_top;
       window.requestAnimationFrame(scroll_func);
     };
     frame = window.requestAnimationFrame(scroll_func);
