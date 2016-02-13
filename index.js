@@ -11,7 +11,7 @@ var ease = function(k) {
 };
 
 var frame;
-module.exports = {
+window.s = {
   isIn: function (el) {
     var top = el.offsetTop;
     var left = el.offsetLeft;
@@ -31,7 +31,10 @@ module.exports = {
       (left + width) <= (window.pageXOffset + window.innerWidth)
     );
   },
-  scrollTo: function (el, to, duration) {
+  scrollTo: function (el) {
+    return this.scrollTop(el.offsetTop, 700);
+  },
+  scrollTop: function (to, duration) {
     if (duration <= 0) {
       return;
     }
@@ -40,7 +43,7 @@ module.exports = {
       window.cancelAnimationFrame(frame);
     }
 
-    var scroll_top = el.scrollTop;
+    var scroll_top = window.pageYOffset || document.documentElement.scrollTop;
     var is_forward = to >= scroll_top;
     var start_time = now();
 
@@ -58,7 +61,7 @@ module.exports = {
       scroll_top = (is_forward && new_pos > to) || (!is_forward && new_pos < to) ? to : new_pos;
 
       // Finally scroll to position
-      el.scrollTop = scroll_top;
+      window.scrollTo(0, scroll_top);
       window.requestAnimationFrame(scroll_func);
     };
     frame = window.requestAnimationFrame(scroll_func);
