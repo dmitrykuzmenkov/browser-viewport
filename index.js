@@ -11,7 +11,7 @@ var ease = function(k) {
 };
 
 var frame;
-window.s = {
+module.exports = {
   isIn: function (el) {
     var top = el.offsetTop;
     var left = el.offsetLeft;
@@ -32,7 +32,7 @@ window.s = {
     );
   },
   scrollTo: function (el) {
-    return this.scrollTop(el.offsetTop, 700);
+    return this.scrollTop(el.offsetTop, 1000);
   },
   scrollTop: function (to, duration) {
     if (duration <= 0) {
