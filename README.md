@@ -11,9 +11,15 @@ You can use library to smooth scrolling or detecting element in viewport or no
 
 ```javascript
 var viewport = require('browser-viewport');
-var element = document.querySelector('#some-element-id');
 viewport.scrollTop(500, 1000);
 ```
+
+```javascript
+var viewport = require('browser-viewport');
+var element = document.querySelector('#some-element-id');
+viewport.scrollTo(element);
+```
+
 ## Methods
 
 ### scrollTo(element, duration)
